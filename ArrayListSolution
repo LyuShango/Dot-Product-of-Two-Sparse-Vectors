@@ -1,0 +1,34 @@
+class SparseVector {
+    
+    ArrayList<int[]> records = new ArrayList<>();
+
+    SparseVector(int[] nums) {
+        int n = nums.length;
+        for(int i = 0; i< n; i++){
+            if(nums[i] != 0){
+                records.add(new int[]{i, nums[i]});
+            }
+        }
+    }
+
+    // Return the dotProduct of two sparse vectors
+    public int dotProduct(SparseVector vec) {
+        int sum = 0;
+        int i = 0;
+        int j = 0;
+        int len1 = this.records.size();
+        int len2 = vec.records.size();
+        while(i < len1 && j < len2){
+            if(this.records.get(i)[0] == vec.records.get(j)[0]){
+                sum += this.records.get(i)[1] * vec.records.get(j)[1];
+                i++;
+                j++;
+            }else if(this.records.get(i)[0] < vec.records.get(j)[0]){
+                i++;
+            }else{
+                j++;
+            }
+        }
+        return sum;
+    }
+}
